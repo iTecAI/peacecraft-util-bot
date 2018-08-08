@@ -1,4 +1,5 @@
 import discord
+import time
 
 client = discord.Client()
 TOK = 'NDc2Njk0MTkyNzI3MjYxMTg1.DkxTyg.pVj32MDqiwS-rFWU6u0ZksEkEzo'
@@ -21,7 +22,16 @@ async def on_message(message):
                 args.append(i.lower())
             print('RCV ' + cmd + ': ' + ', '.join(args))
             if cmd == 'test':
-                await client.send_message(message.channel, 'Test Success. Utilbot online.')
+                await client.send_message(message.channel, 'System Online')
+                await client.send_message(message.channel, 'Active: ' + str(toggle))
+                await client.send_message(message.channel, 'Time: ' + time.ctime())
+                mem_online = []
+                for mem in message.server.members:
+                    if mem.status != discord.Status.offline:
+                        mem_online.append(str(mem.name) + ' (' + str(mem.nick) + ')')
+                await client.send_message(message.channel, 'Online: ' + ', '.join(mem_online))
+                
+                    
             elif cmd == 'server' and toggle:
                 if len(args) >= 1:
                     if args[0] == 'ip':
