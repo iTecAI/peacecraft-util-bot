@@ -2,6 +2,7 @@ import discord
 
 client = discord.Client()
 TOK = 'NDc2Njk0MTkyNzI3MjYxMTg1.DkxTyg.pVj32MDqiwS-rFWU6u0ZksEkEzo'
+toggle = True
 
 @client.event
 async def on_ready():
@@ -9,7 +10,8 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.channel.name == 'utilbots':
+    global toggle
+    if message.channel.name == 'utilbots' and toggle:
         if message.content.startswith('pcu ') or message.content.startswith('PCU '):
             cmd_help = {'test': 'Tests utilbot online status', 'help': 'Displays this information', 'server':'Displays relevant info about the MC server', 'ping':'Mentions everyone repeatedly. Specify this amount with a number after the ping command'} 
             cmd = message.content.split(' ')[1].lower()
@@ -41,6 +43,12 @@ async def on_message(message):
                     return
                 for i in range(abs(int(args[0]))):
                     await client.send_message(message.channel, '@everyone')
+            elif cmd == 'toggle' and message.author.name == 'iTecX':
+                if toggle:
+                    toggle = False
+                else:
+                    toggle = True
+                await client.send_message(message.channel, 'PCU Active: ' + str(toggle))
             else:
                 await client.send_message(message.channel, 'Error: invalid command.')
                 
