@@ -1,1 +1,1 @@
-web: python -m dub.py
+worker: python -m dub.py
