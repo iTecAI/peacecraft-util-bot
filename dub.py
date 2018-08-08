@@ -29,7 +29,7 @@ async def on_message(message):
                     if mem.status != discord.Status.offline:
                         mem_online.append(str(mem.name) + ' (' + str(mem.nick) + ')')
                 await client.send_message(message.channel, 'Online: ' + ', '.join(mem_online))
-                loc = eval(urlopen('https://api.ipgeolocation.io/ipgeo?apiKey=839e7eb39f7e4a958d348fdb9f87c47d&ip=' + getip()).read())
+                loc = eval(urlopen('https://api.ipgeolocation.io/ipgeo?apiKey=839e7eb39f7e4a958d348fdb9f87c47d&ip=' + get_ip()).read())
                 await client.send_message(message.channel, 'LOC: ' + ', '.join([loc['latitude'], loc['longitude']]))
                 
                     
