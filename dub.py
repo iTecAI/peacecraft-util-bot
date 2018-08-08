@@ -29,7 +29,7 @@ async def on_message(message):
                     if mem.status != discord.Status.offline:
                         mem_online.append(str(mem.name) + ' (' + str(mem.nick) + ')')
                 await client.send_message(message.channel, 'Online: ' + ', '.join(mem_online))
-                loc_obj = geolite2.lookup(str(get_ip()).encode())
+                loc_obj = geolite2.lookup(bytes(str(get_ip()).encode()))
                 await client.send_message(message.channel, 'LOC: ' + ', '.join(loc_obj.location))
                 
                     
