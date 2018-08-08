@@ -7,6 +7,7 @@ client = discord.Client()
 TOK = 'NDc2Njk0MTkyNzI3MjYxMTg1.DkxTyg.pVj32MDqiwS-rFWU6u0ZksEkEzo'
 toggle = True
 
+
 @client.event
 async def on_ready():
     print('PCU Active')
@@ -29,7 +30,9 @@ async def on_message(message):
                     if mem.status != discord.Status.offline:
                         mem_online.append(str(mem.name) + ' (' + str(mem.nick) + ')')
                 await client.send_message(message.channel, 'Online: ' + ', '.join(mem_online))
-                loc = eval(urlopen('https://api.ipgeolocation.io/ipgeo?apiKey=839e7eb39f7e4a958d348fdb9f87c47d&ip=' + get_ip()).read())
+                raw = str(urlopen('https://api.ipgeolocation.io/ipgeo?apiKey=839e7eb39f7e4a958d348fdb9f87c47d&ip=' + str(get_ip())).read())
+                raw = raw[2:len(raw)].strip(" '")
+                loc = eval(raw, {'true':True, 'false': False})
                 await client.send_message(message.channel, 'LOC: ' + ', '.join([loc['latitude'], loc['longitude']]))
                 
                     
