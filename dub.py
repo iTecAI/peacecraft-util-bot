@@ -48,9 +48,10 @@ async def on_message(message):
                     toggle = False
                 else:
                     toggle = True
-                await client.send_message(message.channel, 'PCU Active: ' + str(toggle))
+                await client.send_message(message.channel, '$PCU Active: ' + str(toggle))
             else:
-                await client.send_message(message.channel, 'Error: invalid command.')
+                if toggle:
+                    await client.send_message(message.channel, 'Error: invalid command.')
                 
 
 client.run(TOK)
