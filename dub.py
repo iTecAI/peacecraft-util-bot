@@ -49,7 +49,6 @@ async def on_message(message):
                     int(args[0])
                 except:
                     args[0] = 1
-                try:
                 if message.author.name != 'iTecX' and int(args[0]) > 5:
                     await client.send_message(message.channel, 'Error: You cannot ping more than 5 times.')
                     return
