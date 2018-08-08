@@ -42,6 +42,8 @@ async def on_message(message):
                     await client.send_message(message.channel, 'Error: You cannot ping more than 5 times.')
                     return
                 for i in range(abs(int(args[0]))):
+                    if not toggle:
+                        return
                     await client.send_message(message.channel, '@everyone')
             elif cmd == 'toggle' and message.author.name == 'iTecX':
                 if toggle:
