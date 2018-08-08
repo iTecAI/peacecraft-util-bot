@@ -16,10 +16,7 @@ async def on_message(message):
         if message.content.startswith('pcu ') or message.content.startswith('PCU '):
             cmd_help = {'test': 'Tests utilbot online status', 'help': 'Displays this information', 'server':'Displays relevant info about the MC server', 'ping':'Mentions everyone repeatedly. Specify this amount with a number after the ping command'} 
             cmd = message.content.split(' ')[1].lower()
-            _args = message.content.split(' ')[2:]
-            args = []
-            for i in _args:
-                args.append(i.lower())
+            args = message.content.split(' ')[2:]
             print('RCV ' + cmd + ': ' + ', '.join(args))
             if cmd == 'test':
                 await client.send_message(message.channel, 'System Online')
@@ -48,13 +45,31 @@ async def on_message(message):
             elif cmd == 'ping' and toggle:
                 if len(args) == 0:
                     args[0] = 1
+                try:
+                    int(args[0])
+                except:
+                    args[0] = 1
+                try:
                 if message.author.name != 'iTecX' and int(args[0]) > 5:
                     await client.send_message(message.channel, 'Error: You cannot ping more than 5 times.')
                     return
-                for i in range(abs(int(args[0]))):
-                    if not toggle:
-                        return
-                    await client.send_message(message.channel, '@everyone')
+                if len(args) == 1:
+                    for i in range(abs(int(args[0]))):
+                        if not toggle:
+                            return
+                        await client.send_message(message.channel, '@everyone')
+                else:
+                    to_men = None
+                    for mem in message.server.members:
+                        if mem.name == args[1] or mem.nick == args[1]:
+                            to_men = mem.mention
+                    if to_men == None:
+                        await client.send_message(message.channel, 'Error: ' + args[1] + ' is not a member of this server')
+                    else:
+                        for i in range(abs(int(args[0]))):
+                            if not toggle:
+                                return
+                            await client.send_message(message.channel, to_men)
             elif cmd == 'toggle' and message.author.name == 'iTecX':
                 if toggle:
                     toggle = False
