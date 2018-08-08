@@ -11,7 +11,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
     global toggle
-    if message.channel.name == 'utilbots' and toggle:
+    if message.channel.name == 'utilbots':
         if message.content.startswith('pcu ') or message.content.startswith('PCU '):
             cmd_help = {'test': 'Tests utilbot online status', 'help': 'Displays this information', 'server':'Displays relevant info about the MC server', 'ping':'Mentions everyone repeatedly. Specify this amount with a number after the ping command'} 
             cmd = message.content.split(' ')[1].lower()
@@ -22,7 +22,7 @@ async def on_message(message):
             print('RCV ' + cmd + ': ' + ', '.join(args))
             if cmd == 'test':
                 await client.send_message(message.channel, 'Test Success. Utilbot online.')
-            elif cmd == 'server':
+            elif cmd == 'server' and toggle:
                 if len(args) >= 1:
                     if args[0] == 'ip':
                         await client.send_message(message.channel, 'Server IP: 207.38.165.56')
@@ -32,10 +32,10 @@ async def on_message(message):
                         await client.send_message(message.channel, 'Error: Invalid argument ' + args[0])
                 else:
                     await client.send_message(message.channel, 'Arguments/subcommands: \n-ip: Displays server IP \n-owner: gives info about server owner')
-            elif cmd == 'help':
+            elif cmd == 'help' and toggle:
                 for i in cmd_help.keys():
                     await client.send_message(message.channel, i + ': ' + cmd_help[i])
-            elif cmd == 'ping':
+            elif cmd == 'ping' and toggle:
                 if len(args) == 0:
                     args[0] = 1
                 if message.author.name != 'iTecX' and int(args[0]) > 5:
