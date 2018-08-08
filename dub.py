@@ -1,6 +1,6 @@
 import discord, time
 from ipify import get_ip
-from geoip import geolite2
+from urllib.request import urlopen
 
 
 client = discord.Client()
@@ -29,8 +29,8 @@ async def on_message(message):
                     if mem.status != discord.Status.offline:
                         mem_online.append(str(mem.name) + ' (' + str(mem.nick) + ')')
                 await client.send_message(message.channel, 'Online: ' + ', '.join(mem_online))
-                loc_obj = geolite2.lookup(bytes(str(get_ip()).encode()))
-                await client.send_message(message.channel, 'LOC: ' + ', '.join(loc_obj.location))
+                loc = eval(urlopen('https://api.ipgeolocation.io/ipgeo?apiKey=839e7eb39f7e4a958d348fdb9f87c47d&ip=' + getip()).read())
+                await client.send_message(message.channel, 'LOC: ' + ', '.join([loc['latitude'], loc['longitude']]))
                 
                     
             elif cmd == 'server' and toggle:
