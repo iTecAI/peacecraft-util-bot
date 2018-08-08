@@ -1,6 +1,6 @@
 import discord, time
 from ipify import get_ip
-from ip2geotools.databases.noncommercial import Freegeoip
+from geoip import geolite2
 
 
 client = discord.Client()
@@ -29,9 +29,8 @@ async def on_message(message):
                     if mem.status != discord.Status.offline:
                         mem_online.append(str(mem.name) + ' (' + str(mem.nick) + ')')
                 await client.send_message(message.channel, 'Online: ' + ', '.join(mem_online))
-                loc_obj = Freegeoip.get(str(get_ip))
-                loc = [loc_obj.latitude, loc_obj.longitude]
-                await client.send_message(message.channel, 'LOC: ' + ', '.join(loc))
+                loc_obj = geolite2.lookup(str(get_ip()))
+                await client.send_message(message.channel, 'LOC: ' + ', '.join(loc_obj.location))
                 
                     
             elif cmd == 'server' and toggle:
