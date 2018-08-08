@@ -1,3 +1,4 @@
 discord.py==0.16.12
 ipify==1.0.0
 python-geoip==1.2
+python-geoip-geolite2==2015.0303
