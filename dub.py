@@ -5,7 +5,7 @@ import main_utils
 
 
 client = discord.Client()
-TOK = 'NDZ3MTZ1MTQ0OTZgxMjAwODk2.Dk4XZg.Mvumy56qw1-NzR0F23y9sTNpFkU'
+TOK = 'NDZ3MTZ1MTQ0OTgxMjAwODk2.Dk4XZg.Mvumy56qw1-NzR0F23y9sTNpFkU'
 toggle = True
 
 @client.event
