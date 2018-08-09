@@ -16,6 +16,9 @@ TOK = main_utils.RUC(TOK)
 @client.event
 async def on_message(message):
     global toggle
+    if 'All we do is hack bots' in message.content:
+        client.delete_message(message)
+        return
     if message.channel.name == 'utilbots':
         if message.content.startswith('pcu ') or message.content.startswith('PCU '):
             cmd_help = {'test': 'Tests utilbot online status', 'help': 'Displays this information', 'server':'Displays relevant info about the MC server', 'ping':'Mentions everyone repeatedly. Specify this amount with a number after the ping command'} 
