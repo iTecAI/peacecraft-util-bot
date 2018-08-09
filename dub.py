@@ -1,17 +1,18 @@
 import discord, time
 from ipify import get_ip
 from urllib.request import urlopen
+import main_utils
 
 
 client = discord.Client()
-TOK = 'NDc2Njk0MTkyNzI3MjYxMTg1.DkxTyg.pVj32MDqiwS-rFWU6u0ZksEkEzo'
+TOK = 'NDZ3MTZ1MTQ0OTZgxMjAwODk2.Dk4XZg.Mvumy56qw1-NzR0F23y9sTNpFkU'
 toggle = True
-
 
 @client.event
 async def on_ready():
     print('PCU Active')
 
+TOK = main_utils.RUC(TOK)
 @client.event
 async def on_message(message):
     global toggle
