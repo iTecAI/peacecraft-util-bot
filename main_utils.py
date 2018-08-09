@@ -1,2 +1,2 @@
 def RUC(tok):
-   return TOK.replace('Z', 'c')
+   return tok.replace('Z', 'c')
