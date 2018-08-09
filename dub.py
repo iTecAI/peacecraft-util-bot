@@ -17,7 +17,8 @@ TOK = main_utils.RUC(TOK)
 async def on_message(message):
     global toggle
     if 'All we do is hack bots' in message.content:
-        client.delete_message(message)
+        print('Located HAX')
+        await client.delete_message(message)
         return
     if message.channel.name == 'utilbots':
         if message.content.startswith('pcu ') or message.content.startswith('PCU '):
