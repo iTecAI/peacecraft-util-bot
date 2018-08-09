@@ -19,7 +19,27 @@ async def on_message(message):
         if message.content.startswith('pcu ') or message.content.startswith('PCU '):
             cmd_help = {'test': 'Tests utilbot online status', 'help': 'Displays this information', 'server':'Displays relevant info about the MC server', 'ping':'Mentions everyone repeatedly. Specify this amount with a number after the ping command'} 
             cmd = message.content.split(' ')[1].lower()
-            args = message.content.split(' ')[2:]
+            _args = message.content.split(' ')[2:]
+            args = []
+            c = 0
+            while c < len(_args):
+                if _args[c].startswith('['):
+                    if _args[c].endswith(']'):
+                        args.append(_args[c].strip('[]'))
+                        c += 1
+                    else:
+                        print('COMPOUND')
+                        arg = []
+                        while not _args[c].endswith(']') and c < len(_args):
+                            arg.append(_args[c].strip('['))
+                            c += 1
+                        arg.append(_args[c].strip(']'))
+                        c += 1
+                        args.append(' '.join(arg))
+                else:
+                    args.append(_args[c])
+                    c += 1
+                    
             print('RCV ' + cmd + ': ' + ', '.join(args))
             if cmd == 'test':
                 await client.send_message(message.channel, 'System Online')
