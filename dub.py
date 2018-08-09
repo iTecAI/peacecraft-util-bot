@@ -13,6 +13,7 @@ async def on_ready():
     print('PCU Active')
 
 TOK = main_utils.RUC(TOK)
+print(TOK)
 @client.event
 async def on_message(message):
     global toggle
