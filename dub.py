@@ -7,6 +7,7 @@ import main_utils
 client = discord.Client()
 TOK = 'NDZ3MTZ1MTQ0OTgxMjAwODk2.Dk4XZg.Mvumy56qw1-NzR0F23y9sTNpFkU'
 toggle = True
+disabled_users = []
 
 @client.event
 async def on_ready():
@@ -15,10 +16,14 @@ async def on_ready():
 TOK = main_utils.RUC(TOK)
 @client.event
 async def on_message(message):
-    global toggle
+    global toggle, disabled_users
     if 'All we do is hack bots' in message.content:
         print('Located HAX')
         await client.delete_message(message)
+        return
+    if message.author in disabled_users:
+        await client.delete_message(message)
+        await client.send_message(message.channel, message.author.name + ' tried to send a message but was disabled by an admin')
         return
     if message.channel.name == 'utilbots':
         if message.content.startswith('pcu ') or message.content.startswith('PCU '):
@@ -107,6 +112,17 @@ async def on_message(message):
                 else:
                     toggle = True
                 await client.send_message(message.channel, '$PCU Active: ' + str(toggle))
+            elif cmd == 'utoggle' and message.author.name == 'iTecX':
+                try:
+                    for i in message.mentions:
+                        if i in disabled_users:
+                            del disabled_users[disabled_users.index(i)]
+                            await client.send_message(message.channel, 'Enabled ' + i.name)
+                        else:
+                            disabled_users.append(i)
+                            await client.send_message(message.channel, 'Disabled ' + i.name)
+                except:
+                    pass
             else:
                 if toggle:
                     await client.send_message(message.channel, 'Error: invalid command.')
