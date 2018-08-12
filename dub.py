@@ -8,6 +8,7 @@ client = discord.Client()
 TOK = 'NDZ3MTZ1MTQ0OTgxMjAwODk2.Dk4XZg.Mvumy56qw1-NzR0F23y9sTNpFkU'
 toggle = True
 disabled_users = []
+last = ''
 
 @client.event
 async def on_ready():
@@ -16,14 +17,16 @@ async def on_ready():
 TOK = main_utils.RUC(TOK)
 @client.event
 async def on_message(message):
-    global toggle, disabled_users
+    global toggle, disabled_users, last
     if 'All we do is hack bots' in message.content:
         print('Located HAX')
         await client.delete_message(message)
         return
     if message.author in disabled_users:
         await client.delete_message(message)
-        await client.send_message(message.channel, message.author.name + ' tried to send a message but was disabled by an admin')
+        if last != message.author.name + ' tried to send a message but was disabled by an admin':
+            await client.send_message(message.channel, message.author.name + ' tried to send a message but was disabled by an admin')
+            last = message.author.name + ' tried to send a message but was disabled by an admin'
         return
     if message.channel.name == 'utilbots':
         if message.content.startswith('pcu ') or message.content.startswith('PCU '):
