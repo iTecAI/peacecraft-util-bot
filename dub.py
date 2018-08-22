@@ -1,7 +1,6 @@
 import discord, time
 from ipify import get_ip
 from urllib.request import urlopen
-import main_utils
 
 
 client = discord.Client()
