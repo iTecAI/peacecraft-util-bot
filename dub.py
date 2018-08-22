@@ -5,7 +5,8 @@ import main_utils
 
 
 client = discord.Client()
-TOK = 'NDZ3MTZ1MTQ0OTgxMjAwODk2.Dk4XZg.Mvumy56qw1-NzR0F23y9sTNpFkU'
+with open('cfg.sys', 'r') as tok:
+    TOK = tok.read().splitlines()[0]
 toggle = True
 disabled_users = []
 last = ''
@@ -13,8 +14,6 @@ last = ''
 @client.event
 async def on_ready():
     print('PCU Active')
-
-TOK = main_utils.RUC(TOK)
 @client.event
 async def on_message(message):
     global toggle, disabled_users, last
